@@ -1,0 +1,429 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title:  Bank API
+  description: A simple API to do CRUD on 'banking' resource
+
+servers:
+  - url: http://localhost:5000/
+
+tags:
+  - name: Bank
+    description: API to manage the Bank Application.
+
+paths:
+  /loan:
+    get:
+      summary: Lists all the loans
+      tags: [loan]
+      responses:
+        "200":
+          description: The list of loans.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/loan'
+    post:
+      summary: adds a loan
+      tags: [loan]
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object 
+              properties:
+                acc:
+                  type: string
+                loan_amount:
+                  type: string
+                interest:
+                  type: string
+                no_of_months:
+                  type: string
+                amount_to_be_payed:
+                  type: number
+                profileImg:
+                  type: string
+                  format: binary
+      responses: 
+        '201':
+          description: Created
+  /loan/{acc}/{ID}:
+    get:
+      summary: retrieves the particular loan using id
+      tags: [loan]
+      parameters:
+        - name: ID
+          in: path
+          required: true
+          description:  ID of loan
+          schema:
+            type : string
+        - name: acc
+          in: path
+          required: true
+          description: account number of user
+          schema:
+            type : string
+      responses:
+        "200":
+          description: The particular loan.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/loan'
+
+  /loan/{ID}:
+    delete:
+      summary: deletes a loan details by account number.
+      tags: [loan]
+      parameters:
+        - name: ID
+          in: path
+          required: true
+          description: account number of user 
+          schema:
+            type : string
+      responses:
+        "400":
+          description: "Invalid username supplied"
+        "404":
+          description: "User not found"
+    get:
+      summary: Returns all loans details of an account number.
+      tags: [loan]
+      parameters:
+        - name: ID
+          in: path
+          required: true
+          description: account number of user
+          schema:
+            type : string
+      responses: 
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/loan'
+    patch:
+      summary: upadates  -amount to be payed - in loan information of user.
+      tags: [loan]
+      parameters:
+        - name: ID
+          in: path
+          required: true
+          description: id of loan 
+          schema:
+            type : string
+      requestBody:
+        description: Update amount to be payed
+        required: true
+        content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/loan'
+
+          
+      responses: 
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/loan'
+
+
+
+
+
+  /users:
+    get:
+      summary: Lists all the users
+      tags: [user]
+      responses:
+        "200":
+          description: The list of users.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/users'
+    post:
+      summary: Creates a user.
+      tags: [user]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/users'
+      responses: 
+        '201':
+          description: Created
+
+  /users/{ID}:
+    delete:
+      summary: deletes a user details by account number.
+      tags: [user]
+      parameters:
+        - name: ID
+          in: path
+          required: true
+          description: account number of user 
+          schema:
+            type : string
+      responses:
+        "400":
+          description: "Invalid username supplied"
+        "404":
+          description: "User not found"
+
+    get:
+      summary: Returns a user details by account number.
+      tags: [user]
+      parameters:
+        - name: ID
+          in: path
+          required: true
+          description: account number of user 
+          schema:
+            type : string
+      responses: 
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/users'
+    patch:
+      summary: upadates a user bank balance.
+      tags: [user]
+      parameters:
+        - name: ID
+          in: path
+          required: true
+          description: account number of user 
+          schema:
+            type : string
+      requestBody:
+        description: Update user balance object
+        required: true
+        content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/users'
+
+          
+      responses: 
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/users'
+
+
+  /req:
+    get:
+      summary: Lists all the request's
+      tags: [request]
+      responses:
+        "200":
+          description: The list of request's.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/req'
+    post:
+      summary: Creates a request.
+      tags: [request]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/req'
+      responses: 
+        '201':
+          description: Created
+  /req/{ID}:
+    get:
+      summary: Returns all user request's by account number.
+      tags: [request]
+      parameters:
+        - name: ID
+          in: path
+          required: true
+          description: account number of user 
+          schema:
+            type : string
+      responses: 
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/trans'
+
+
+
+
+  
+  /transactions:
+    get:
+      summary: Lists all the transactions
+      tags: [transaction]
+      responses:
+        "200":
+          description: The list of transactions.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/trans'
+    post:
+      summary: Creates a transaction.
+      tags: [transaction]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/trans'
+      responses: 
+        '201':
+          description: Created
+  
+  /transactions/{ID}:
+    get:
+      summary: Returns a user transaction by account number.
+      tags: [transaction]
+      parameters:
+        - name: ID
+          in: path
+          required: true
+          description: account number of user 
+          schema:
+            type : string
+      responses: 
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/trans'
+
+components:
+  schemas:
+    req:
+      type: object
+      required:
+        - by
+        - to
+        - amount
+      properties:
+        by:
+          type: string
+          description: account number of the request maker user.
+        to:
+          type: string
+          description:  account number of the requested user.
+        amount:
+          type: number
+          description: requested amount
+      example:
+        by: "123"
+        to: "1234"
+        amount: 100
+    loan:
+      type: object
+      required:
+        - acc
+        - loan_amount
+        - intrest
+        - no_of_months
+        - amount_to_be_payed
+        - profileImg
+      properties:
+        acc:
+          type: string
+          description: account number of the user.
+        loan_amount:
+          type: string
+          description: loan amount of the user.
+        interest:
+          type: string
+          description: interest of the loan.
+        no_of_months:
+          type: string
+          description: number of months in taken loan.
+        amount_to_be_payed:
+          type: number
+          description: amount to be payed by users.
+        profileImg:
+          type: string
+          format: binary
+          description: file uploaded by users.
+      example:
+        acc: "123"
+        loan_amount: "6900"
+        interest: "11.2%"
+        no_of_months: "24"
+        amount_to_be_payed: 10000
+        profileImg: "http://localhost:5000/public/26a64287-2c9f-4251-ad11-85f509f04e17-baseline.png"
+
+    users:
+      type: object
+      required:
+        - balance
+        - name
+        - acc
+        - password
+      properties:
+        balance:
+          type: integer
+          description: balance of the user.
+        name:
+          type: string
+          description: The name of the user.
+        acc:
+          type: string
+          description: The account number  of the user transaction.
+        password:
+          type: string
+          description: The password of user
+
+      example:
+        acc: "123"
+        balance: 1000
+        name: "vineeta"
+        password: "test123"
+
+    trans:
+      type: object
+      required:
+        - acc
+        - amount
+        - to
+        - from 
+      properties:
+        id:
+          type: integer
+          description: The auto-generated id of the user transaction.
+        acc:
+          type: string
+          description: The account of the user.
+        amount:
+          type: string
+          description: The amount of the user transaction.
+        to:
+          type: number
+          description: The account number of the reciever
+        from:
+          type: number
+          description: The account number of the sender
+      example:
+        acc: "123"
+        amount: 1000
+        to: "1234"
+        from: "123"
