@@ -1,0 +1,52 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "engines": {
+    "node": "17.9.0"
+  },
+  "scripts": {
+    "test": " mocha --timeout 10000 app/test/ --exit",
+    "start": "node app/app.js",
+    "heroku-postbuild": "npm install && npm run build "
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.24.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.17.3",
+    "file-stream-rotator": "^0.6.1",
+    "fs": "0.0.1-security",
+    "ioredis": "^5.0.4",
+    "js-yaml": "^4.1.0",
+    "jsonwebtoken": "^8.5.1",
+    "mocha": "^9.2.2",
+    "mongodb": "^4.4.0",
+    "mongoose": "^6.2.4",
+    "morgan": "^1.10.0",
+    "multer": "^1.4.4",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "redis": "^4.0.6",
+    "redis-parser": "^3.0.0",
+    "styled-components": "^5.3.3",
+    "swagger-ui-express": "^4.3.0",
+    "two-step-auth": "^1.1.2",
+    "uuid": "^3.4.0",
+    "uuidv4": "^6.2.12",
+    "web-vitals": "^1.1.2",
+    "write-json-file": "^5.0.0",
+    "yamljs": "^0.3.0"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "chai-http": "^2.0.1",
+    "mocha": "^2.5.3",
+    "nodemon": "^2.0.15",
+    "should": "^13.2.3",
+    "supertest": "^6.2.2"
+  }
+}
